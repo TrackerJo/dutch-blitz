@@ -29,7 +29,8 @@ export default class Game extends Phaser.Scene {
 
         let self = this;
 
-        this.socket = io('http://localhost:3000');
+        // this.socket = io('http://localhost:3000');
+        this.socket = io('https://dutch-blitz-server.onrender.com');
 
         this.socket.on('connect', function () {
             console.log('Connected!');
@@ -54,7 +55,7 @@ export default class Game extends Phaser.Scene {
             }
         })
 
-        this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
+        this.dealText = this.add.text(300, 600, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
 
         this.dealText.on('pointerdown', function () {
             self.socket.emit("dealCards");
@@ -88,9 +89,10 @@ export default class Game extends Phaser.Scene {
 
         this.input.on('drop', function (pointer, gameObject, dropZone) {
             dropZone.data.values.cards++;
-            gameObject.x = (dropZone.x - 350) + (dropZone.data.values.cards * 50);
+            gameObject.x = (dropZone.x -200) + (dropZone.data.values.cards * 50);
             gameObject.y = dropZone.y;
             gameObject.disableInteractive();
+            gameObject.setTint();
             self.socket.emit('cardPlayed', gameObject, self.isPlayerA);
         })
     }
