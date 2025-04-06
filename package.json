@@ -7,7 +7,7 @@
         "build": "node log.js build & webpack --config webpack/config.prod.js",
         "dev-nolog": "webpack-dev-server --config webpack/config.js --open",
         "build-nolog": "webpack --config webpack/config.prod.js",
-        "deploy": "gh-pages -d dist"
+        "deploy": "node log.js build & webpack --config webpack/config.prod.js && gh-pages -d dist"
     },
     "repository": {
         "type": "git",
@@ -37,6 +37,7 @@
         "webpack-merge": "^5.10.0"
     },
     "dependencies": {
+        "firebase": "^11.5.0",
         "phaser": "^3.88.2",
         "socket.io-client": "^4.8.1"
     }
